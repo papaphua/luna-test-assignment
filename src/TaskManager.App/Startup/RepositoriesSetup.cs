@@ -5,7 +5,7 @@ using TaskManager.Persistence.Users;
 
 namespace App.Startup;
 
-public static class RepositorySetup
+public static class RepositoriesSetup
 {
     public static IServiceCollection AddRepositories(this IServiceCollection services)
     {
