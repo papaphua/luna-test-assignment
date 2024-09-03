@@ -11,7 +11,7 @@ public abstract class Repository<TEntity>(ApplicationDbContext dbContext)
             .AddAsync(entity);
     }
 
-    public async Task AddRangeAsync(List<TEntity> entities)
+    public async Task AddRangeAsync(IEnumerable<TEntity> entities)
     {
         await dbContext.Set<TEntity>()
             .AddRangeAsync(entities);
@@ -23,7 +23,7 @@ public abstract class Repository<TEntity>(ApplicationDbContext dbContext)
             .Remove(entity);
     }
 
-    public void RemoveRange(List<TEntity> entities)
+    public void RemoveRange(IEnumerable<TEntity> entities)
     {
         dbContext.Set<TEntity>()
             .RemoveRange(entities);
@@ -35,7 +35,7 @@ public abstract class Repository<TEntity>(ApplicationDbContext dbContext)
             .Update(entity);
     }
 
-    public void UpdateRange(List<TEntity> entities)
+    public void UpdateRange(IEnumerable<TEntity> entities)
     {
         dbContext.Set<TEntity>()
             .UpdateRange(entities);

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using App.Startup;
+using Microsoft.EntityFrameworkCore;
 using TaskManager.Persistence;
 
 namespace App;
@@ -14,6 +15,8 @@ public static class HostingExtensions
         {
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
         });
+
+        builder.Services.AddRepositories();
 
         return builder.Build();
     }
