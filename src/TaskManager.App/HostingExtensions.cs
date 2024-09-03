@@ -1,4 +1,7 @@
-﻿namespace App;
+﻿using Microsoft.EntityFrameworkCore;
+using TaskManager.Persistence;
+
+namespace App;
 
 public static class HostingExtensions
 {
@@ -6,6 +9,11 @@ public static class HostingExtensions
     {
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+
+        builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        {
+            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+        });
 
         return builder.Build();
     }
