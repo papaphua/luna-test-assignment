@@ -1,20 +1,16 @@
-﻿namespace TaskManager.Domain.Tasks;
+﻿using TaskManager.Domain.Core;
 
-public sealed class Task
+namespace TaskManager.Domain.Tasks;
+
+public sealed class Task : Entity
 {
-    public Guid Id { get; private set; }
+    public string Title { get; }
 
-    public string Title { get; private set; }
+    public string Description { get; }
 
-    public string Description { get; private set; }
+    public DateTime DueDate { get; }
 
-    public DateTime DueDate { get; private set; }
+    public Status Status { get; }
 
-    public Status Status { get; private set; }
-
-    public Priority Priority { get; private set; }
-
-    public DateTime CreatedAt { get; private set; }
-
-    public DateTime UpdatedAt { get; private set; }
+    public Priority Priority { get; }
 }

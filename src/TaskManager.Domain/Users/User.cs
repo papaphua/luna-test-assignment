@@ -1,16 +1,12 @@
-﻿namespace TaskManager.Domain.Users;
+﻿using TaskManager.Domain.Core;
 
-public sealed class User
+namespace TaskManager.Domain.Users;
+
+public sealed class User : Entity
 {
-    public Guid Id { get; private set; }
+    public string Username { get; }
 
-    public string Username { get; private set; }
+    public string Email { get; }
 
-    public string Email { get; private set; }
-
-    public string PasswordHash { get; private set; }
-
-    public DateTime CreatedAt { get; private set; }
-
-    public DateTime UpdatedAt { get; private set; }
+    public string PasswordHash { get; }
 }
