@@ -24,5 +24,8 @@ public sealed class TaskConfiguration : IEntityTypeConfiguration<Task>
         builder.Property(task => task.UpdatedAt)
             .IsRequired()
             .HasDefaultValueSql("GETDATE()");
+
+        builder.HasOne(task => task.Owner)
+            .WithMany();
     }
 }
