@@ -10,4 +10,8 @@
         <ProjectReference Include="..\TaskManager.Domain\TaskManager.Domain.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8"/>
+    </ItemGroup>
+
 </Project>
