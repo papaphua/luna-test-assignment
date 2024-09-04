@@ -2,11 +2,11 @@
 
 namespace TaskManager.Domain.Users;
 
-public sealed class User : Entity
+public sealed class User(string username, string email, string passwordHash) : Entity
 {
-    public string Username { get; }
+    public string Username { get; } = username;
 
-    public string Email { get; }
+    public string Email { get; } = email;
 
-    public string PasswordHash { get; }
+    public string PasswordHash { get; } = passwordHash;
 }
