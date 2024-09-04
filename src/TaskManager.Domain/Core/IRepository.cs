@@ -1,8 +1,10 @@
 ﻿namespace TaskManager.Domain.Core;
 
-public interface IRepository<in TEntity>
+public interface IRepository<TEntity>
     where TEntity : Entity
 {
+    Task<TEntity?> GetByIdAsync(Guid id);
+
     Task AddAsync(TEntity entity);
 
     Task AddRangeAsync(IEnumerable<TEntity> entities);

@@ -1,10 +1,17 @@
-﻿using TaskManager.Domain.Core;
+﻿using Microsoft.EntityFrameworkCore;
+using TaskManager.Domain.Core;
 
 namespace TaskManager.Persistence.Core;
 
 public abstract class Repository<TEntity>(ApplicationDbContext dbContext)
     where TEntity : Entity
 {
+    public async Task<TEntity?> GetByIdAsync(Guid id)
+    {
+        return await dbContext.Set<TEntity>()
+            .FirstOrDefaultAsync(entity => entity.Id == id);
+    }
+    
     public async Task AddAsync(TEntity entity)
     {
         await dbContext.Set<TEntity>()
