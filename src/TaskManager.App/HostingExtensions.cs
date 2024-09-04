@@ -1,6 +1,11 @@
-﻿using App.Startup;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using TaskManager.Application.Tasks;
+using TaskManager.Application.Users;
+using TaskManager.Domain.Tasks;
+using TaskManager.Domain.Users;
 using TaskManager.Persistence;
+using TaskManager.Persistence.Tasks;
+using TaskManager.Persistence.Users;
 
 namespace App;
 
@@ -16,8 +21,10 @@ public static class HostingExtensions
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
         });
 
-        builder.Services.AddRepositories();
-        builder.Services.AddServices();
+        builder.Services.AddScoped<IUserRepository, UserRepository>();
+        builder.Services.AddScoped<ITaskRepository, TaskRepository>();
+        builder.Services.AddScoped<IUserService, UserService>();
+        builder.Services.AddScoped<ITaskService, TaskService>();
 
         return builder.Build();
     }
