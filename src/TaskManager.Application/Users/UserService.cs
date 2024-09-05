@@ -40,7 +40,7 @@ public sealed class UserService(
         var user = await userRepository.GetByUsernameAsync(dto.UsernameOrEmail) ??
                    await userRepository.GetByEmailAsync(dto.UsernameOrEmail);
 
-        if (user == null || BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
+        if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
             return Result<string>.Failure(UserErrors.InvalidCredentials);
 
         var tokenHandler = new JwtSecurityTokenHandler();

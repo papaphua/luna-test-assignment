@@ -71,6 +71,9 @@ public static class HostingExtensions
         app.UseAuthentication();
         app.UseAuthorization();
 
+        app.MapControllers()
+            .RequireAuthorization();
+
         app.Run();
 
         return app;
