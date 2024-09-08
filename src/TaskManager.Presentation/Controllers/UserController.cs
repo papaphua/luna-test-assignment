@@ -31,4 +31,10 @@ public sealed class UserController(IUserService userService) : ApiController
             ? Results.Ok(result.Value)
             : result.ToProblemDetails();
     }
+
+    [HttpGet]
+    public string Test()
+    {
+        return "Okay";
+    }
 }
