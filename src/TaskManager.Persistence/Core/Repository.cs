@@ -11,7 +11,7 @@ public abstract class Repository<TEntity>(ApplicationDbContext dbContext)
         return await dbContext.Set<TEntity>()
             .FirstOrDefaultAsync(entity => entity.Id == id);
     }
-    
+
     public async Task AddAsync(TEntity entity)
     {
         await dbContext.Set<TEntity>()
