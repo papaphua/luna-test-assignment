@@ -10,7 +10,7 @@ public abstract class ApiController : ControllerBase
     {
         get
         {
-            var stringId = HttpContext.User.FindFirstValue("nameid");
+            var stringId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             return Guid.TryParse(stringId, out var guid)
                 ? guid
                 : Guid.Empty;

@@ -5,17 +5,17 @@ namespace TaskManager.Domain.Tasks;
 
 public sealed class Task : Entity
 {
-    public string Title { get; }
+    public string Title { get; set; }
 
-    public string Description { get; }
+    public string Description { get; set; }
 
-    public DateTime DueDate { get; }
+    public DateTime? DueDate { get; set; }
 
-    public Status Status { get; }
+    public Status? Status { get; set; }
 
-    public Priority Priority { get; }
+    public Priority? Priority { get; set; }
 
-    public Guid OwnerId { get; }
+    public Guid OwnerId { get; set; }
 
-    public User Owner { get; }
+    public User Owner { get; set; }
 }

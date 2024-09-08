@@ -1,3 +1,10 @@
-﻿namespace TaskManager.Application.Tasks.Dtos;
+﻿using TaskManager.Domain.Tasks;
 
-public sealed record NewTaskDto;
+namespace TaskManager.Application.Tasks.Dtos;
+
+public sealed record NewTaskDto(
+    string Title,
+    string Description,
+    DateTime? DueDate,
+    Status? Status,
+    Priority? Priority);

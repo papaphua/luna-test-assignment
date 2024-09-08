@@ -12,4 +12,7 @@ public static class UserErrors
 
     public static readonly Error InvalidCredentials = Error.NotFound(
         $"{nameof(User)}.{nameof(InvalidCredentials)}", "Invalid username/email or password.");
+
+    public static readonly Error InternalError = Error.Internal(
+        $"{nameof(User)}.{nameof(InternalError)}", "Something went wrong.");
 }

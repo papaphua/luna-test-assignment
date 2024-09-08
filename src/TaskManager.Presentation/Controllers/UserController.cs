@@ -12,7 +12,7 @@ public sealed class UserController(IUserService userService) : ApiController
 {
     [HttpPost("register")]
     [AllowAnonymous]
-    public async Task<IResult> Register(RegisterDto dto)
+    public async Task<IResult> Register([FromForm] RegisterDto dto)
     {
         var result = await userService.RegisterAsync(dto);
 
@@ -23,18 +23,12 @@ public sealed class UserController(IUserService userService) : ApiController
 
     [HttpPost("login")]
     [AllowAnonymous]
-    public async Task<IResult> Login(LoginDto dto)
+    public async Task<IResult> Login([FromForm] LoginDto dto)
     {
         var result = await userService.LoginAsync(dto);
 
         return result.IsSuccess
             ? Results.Ok(result.Value)
             : result.ToProblemDetails();
-    }
-
-    [HttpGet]
-    public string Test()
-    {
-        return "Okay";
     }
 }

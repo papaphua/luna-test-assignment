@@ -28,9 +28,15 @@ public sealed class UserService(
 
         var user = new User(dto.Username, dto.Email, hashedPassword);
 
-        await userRepository.AddAsync(user);
-
-        await unitOfWork.SaveChangesAsync();
+        try
+        {
+            await userRepository.AddAsync(user);
+            await unitOfWork.SaveChangesAsync();
+        }
+        catch (Exception)
+        {
+            return Result.Failure(UserErrors.InternalError);
+        }
 
         return Result.Success();
     }
