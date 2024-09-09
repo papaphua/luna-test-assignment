@@ -3,18 +3,16 @@ using TaskManager.Application.Tasks.Dtos;
 using TaskManager.Domain.Core.Paging;
 using TaskManager.Domain.Core.Results;
 using TaskManager.Domain.Tasks;
-using TaskManager.Domain.Users;
 using Task = TaskManager.Domain.Tasks.Task;
 
 namespace TaskManager.Application.Tasks;
 
 public sealed class TaskService(
     ITaskRepository taskRepository,
-    IUserRepository userRepository,
     IUnitOfWork unitOfWork)
     : ITaskService
 {
-    public async Task<Result> CreateTaskAsync(Guid userId, NewTaskDto dto)
+    public async Task<Result> CreateTaskAsync(Guid userId, TaskDto dto)
     {
         var task = new Task
         {
@@ -46,4 +44,57 @@ public sealed class TaskService(
 
         return Result<PagedList<Task>>.Success(tasks);
     }
-};
+
+    public async Task<Result<Task>> GetTaskAsync(Guid userId, Guid id)
+    {
+        var task = await taskRepository.GetByIdAsync(id);
+
+        if (task == null || task.OwnerId != userId) return Result<Task>.Failure(TaskErrors.TaskNotFound);
+
+        return Result<Task>.Success(task);
+    }
+
+    public async Task<Result> UpdateTaskAsync(Guid userId, Guid taskId, TaskDto dto)
+    {
+        var task = await taskRepository.GetByIdAsync(taskId);
+
+        if (task == null || task.OwnerId != userId) return Result.Failure(TaskErrors.TaskNotFound);
+
+        task.Title = dto.Title;
+        task.Description = dto.Description;
+        task.DueDate = dto.DueDate;
+        task.Status = dto.Status;
+        task.Priority = dto.Priority;
+
+        try
+        {
+            taskRepository.Update(task);
+            await unitOfWork.SaveChangesAsync();
+        }
+        catch (Exception)
+        {
+            return Result.Failure(TaskErrors.InternalError);
+        }
+
+        return Result.Success();
+    }
+
+    public async Task<Result> DeleteTaskAsync(Guid userId, Guid taskId)
+    {
+        var task = await taskRepository.GetByIdAsync(taskId);
+
+        if (task == null || task.OwnerId != userId) return Result.Failure(TaskErrors.TaskNotFound);
+
+        try
+        {
+            taskRepository.Remove(task);
+            await unitOfWork.SaveChangesAsync();
+        }
+        catch (Exception)
+        {
+            return Result.Failure(TaskErrors.InternalError);
+        }
+
+        return Result.Success();
+    }
+}

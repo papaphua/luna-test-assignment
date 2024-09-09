@@ -8,8 +8,14 @@ namespace TaskManager.Application.Tasks;
 
 public interface ITaskService
 {
-    Task<Result> CreateTaskAsync(Guid userId, NewTaskDto dto);
+    Task<Result> CreateTaskAsync(Guid userId, TaskDto dto);
 
     Task<Result<PagedList<Task>>> GetTasksAsync(Guid userId, PagingParameters parameters,
         TaskFilter filter);
-};
+
+    Task<Result<Task>> GetTaskAsync(Guid userId, Guid id);
+
+    Task<Result> UpdateTaskAsync(Guid userId, Guid taskId, TaskDto dto);
+
+    Task<Result> DeleteTaskAsync(Guid userId, Guid taskId);
+}
