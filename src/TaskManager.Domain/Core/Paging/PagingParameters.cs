@@ -1,8 +1,8 @@
 ﻿namespace TaskManager.Domain.Core.Paging;
 
-public sealed class PagingParameters(int currentPage, int pageSize)
+public sealed class PagingParameters
 {
-    public int PageSize { get; set; } = pageSize;
+    public int PageSize { get; set; }
 
-    public int CurrentPage { get; set; } = currentPage;
+    public int CurrentPage { get; set; }
 }

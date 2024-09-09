@@ -10,7 +10,7 @@ public sealed class TaskRepository(ApplicationDbContext dbContext) : Repository<
 {
     private readonly ApplicationDbContext _dbContext = dbContext;
 
-    public async Task<PagedList<Task>> GetAllByUserId(Guid userId, PagingParameters parameters, TaskFilter filter)
+    public async Task<PagedList<Task>> GetAllByUserIdAsync(Guid userId, PagingParameters parameters, TaskFilter filter)
     {
         var query = _dbContext.Set<Task>()
             .Where(task => task.OwnerId == userId);

@@ -5,5 +5,5 @@ namespace TaskManager.Domain.Tasks;
 
 public interface ITaskRepository : IRepository<Task>
 {
-    Task<PagedList<Task>> GetAllByUserId(Guid userId, PagingParameters parameters, TaskFilter filter);
+    Task<PagedList<Task>> GetAllByUserIdAsync(Guid userId, PagingParameters parameters, TaskFilter filter);
 }

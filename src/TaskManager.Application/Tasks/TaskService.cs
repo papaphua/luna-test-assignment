@@ -1,5 +1,6 @@
 ﻿using TaskManager.Application.Core;
 using TaskManager.Application.Tasks.Dtos;
+using TaskManager.Domain.Core.Paging;
 using TaskManager.Domain.Core.Results;
 using TaskManager.Domain.Tasks;
 using TaskManager.Domain.Users;
@@ -36,5 +37,13 @@ public sealed class TaskService(
         }
 
         return Result.Success();
+    }
+
+    public async Task<Result<PagedList<Task>>> GetTasksAsync(Guid userId, PagingParameters parameters,
+        TaskFilter filter)
+    {
+        var tasks = await taskRepository.GetAllByUserIdAsync(userId, parameters, filter);
+
+        return Result<PagedList<Task>>.Success(tasks);
     }
 };
