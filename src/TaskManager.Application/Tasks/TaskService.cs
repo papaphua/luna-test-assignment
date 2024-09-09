@@ -47,18 +47,18 @@ public sealed class TaskService(
 
     public async Task<Result<Task>> GetTaskAsync(Guid userId, Guid id)
     {
-        var task = await taskRepository.GetByIdAsync(id);
+        var task = await taskRepository.GetByUserIdAndIdAsync(userId, id);
 
-        if (task == null || task.OwnerId != userId) return Result<Task>.Failure(TaskErrors.TaskNotFound);
+        if (task == null) return Result<Task>.Failure(TaskErrors.TaskNotFound);
 
         return Result<Task>.Success(task);
     }
 
     public async Task<Result> UpdateTaskAsync(Guid userId, Guid taskId, TaskDto dto)
     {
-        var task = await taskRepository.GetByIdAsync(taskId);
+        var task = await taskRepository.GetByUserIdAndIdAsync(userId, taskId);
 
-        if (task == null || task.OwnerId != userId) return Result.Failure(TaskErrors.TaskNotFound);
+        if (task == null) return Result.Failure(TaskErrors.TaskNotFound);
 
         task.Title = dto.Title;
         task.Description = dto.Description;
@@ -81,9 +81,9 @@ public sealed class TaskService(
 
     public async Task<Result> DeleteTaskAsync(Guid userId, Guid taskId)
     {
-        var task = await taskRepository.GetByIdAsync(taskId);
+        var task = await taskRepository.GetByUserIdAndIdAsync(userId, taskId);
 
-        if (task == null || task.OwnerId != userId) return Result.Failure(TaskErrors.TaskNotFound);
+        if (task == null) return Result.Failure(TaskErrors.TaskNotFound);
 
         try
         {

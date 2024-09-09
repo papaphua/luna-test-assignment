@@ -1,4 +1,5 @@
-﻿using TaskManager.Application.Core.Paging;
+﻿using Microsoft.EntityFrameworkCore;
+using TaskManager.Application.Core.Paging;
 using TaskManager.Domain.Core.Paging;
 using TaskManager.Domain.Tasks;
 using TaskManager.Persistence.Core;
@@ -10,6 +11,12 @@ public sealed class TaskRepository(ApplicationDbContext dbContext) : Repository<
 {
     private readonly ApplicationDbContext _dbContext = dbContext;
 
+    public async Task<Task?> GetByUserIdAndIdAsync(Guid userId, Guid id)
+    {
+        return await _dbContext.Set<Task>()
+            .FirstOrDefaultAsync(task => task.OwnerId == userId && task.Id == id);
+    }
+    
     public async Task<PagedList<Task>> GetAllByUserIdAsync(Guid userId, PagingParameters parameters, TaskFilter filter)
     {
         var query = _dbContext.Set<Task>()
