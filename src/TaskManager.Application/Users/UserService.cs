@@ -17,6 +17,10 @@ public sealed class UserService(
 {
     public async Task<Result> RegisterAsync(RegisterDto dto)
     {
+        if (!UsernameValidator.IsValid(dto.Username)) return Result.Failure(UserErrors.UsernameValidation);
+
+        if (!PasswordValidator.IsValid(dto.Password)) return Result.Failure(UserErrors.PasswordValidation);
+
         var isEmailRegistered = await userRepository.GetByEmailAsync(dto.Email) != null;
         var isUsernameRegistered = await userRepository.GetByUsernameAsync(dto.Username) != null;
 
