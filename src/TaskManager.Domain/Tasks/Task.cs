@@ -9,7 +9,7 @@ public sealed class Task : Entity
 
     public string? Description { get; set; }
 
-    public DateTime? DueDate { get; set; }
+    public DateOnly? DueDate { get; set; }
 
     public Status? Status { get; set; }
 
