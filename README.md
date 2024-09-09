@@ -13,6 +13,7 @@ JWT_KEY=YOUR_KEY
 dotnet ef migrations add MIGRATION_NAME --startup-project "../TaskManger.App"
 dotnet ef database update --startup-project "../TaskManger.App"
 ```
+3. Start app and proceed to swagger page.
 
 ## APIs
 
@@ -33,6 +34,7 @@ dotnet ef database update --startup-project "../TaskManger.App"
 2. Domain - entities and some base functionality
 3. Application - business logic
 4. Persistence - db access
+5. Presentation - api controllers
 
 **Generic repository pattern**
 1. Shared base features among all entities.
